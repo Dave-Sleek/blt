@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahumono Language Translator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .translator-container {
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #0078d7;
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 95%;
+      height: 100px;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      resize: none;
+    }
+
+    select, button {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+
+    button {
+      background-color: #0078d7;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005bb5;
+    }
+
+    .dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .dark-mode .translator-container {
+      background-color: #444;
+      color: #fff;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 20px;
+    }
+
+    .output-container p {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      word-wrap: break-word;
+      margin-bottom: 10px;
+    }
+
+    .dark-mode .output-container p {
+      background-color: #555;
+    }
+
+    .history {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .history h3 {
+      margin-bottom: 10px;
+    }
+
+    .history ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .history li {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      margin-bottom: 5px;
+    }
+
+    .dark-mode .history li {
+      background-color: #555;
+    }
+
+     /* Footer Styling */
+     footer {
+      background-color: #0078d7;
+      color: white;
+      width: 95%;
+      text-align: center;
+      padding: 15px;
+      position: relative;
+      bottom: 0;
+      margin-top: 20px;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="translator-container">
+    <h1>Bahumono Language Translator</h1>
+    <br>
+    <select id="translationDirection">
+      <option value="ohumonoToEnglish">Ohumono to English</option>
+      <option value="englishToOhumono">English to Ohumono</option>
+    </select>
+    <button onclick="reverseTranslation()">Reverse</button>
+    <br><br>
+    <textarea id="inputText" placeholder="Enter text here..."></textarea>
+    <br>
+    <button onclick="translateText()">Translate</button>
+    <button onclick="speakTranslation()">Speak</button>
+    <button onclick="copyTranslation()">Copy</button>
+    <button onclick="clearFields()">Clear</button>
+    <br><br>
+    <button onclick="downloadHistory()">Download History</button>
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <h2>Original and Translated Text:</h2>
+    <div class="output-container">
+      <p><strong>Original:</strong> <span id="originalText">Your input will appear here...</span></p>
+      <p><strong>Translation:</strong> <span id="translatedText">Your translation will appear here...</span></p>
+    </div>
+    <div class="history">
+      <h3>Translation History</h3>
+      <ul id="translationHistory"></ul>
+    </div>
+    <footer>
+    <p>&copy; Dave Enyi - <span id="year"></span> <script>
+          const d = new Date();
+          let year = d.getFullYear();
+          document.getElementById("year").innerHTML = year;
+          </script>| All Rights Reserved.</p>
+    <p>
+      <!-- <a href="#">About</a> | 
+      <a href="#">Contact</a> |
+      <a href="#">Privacy</a> -->
+    </p>
+  </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
