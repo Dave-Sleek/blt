@@ -43,11 +43,13 @@
       "enarunyi": "we shall receive gift",
       "hene": "wealth",
       "hivinene": "waking",
+      "sahono": "cry",
       "asodor": "our_father",
       "akaodor": "our_mother",
       "rofem_asum": "my_heart",
       "runyina": "_wealth",
-      "abba": "welcome"
+      "abba": "welcome",
+      "ruhan": "mercy"
     };
 
     const dictionaryEnglishToOhumono = {
@@ -93,11 +95,13 @@
       "we shall receive gift": "enarunyi",
       "wealth": "hene",
       "waking": "hivinene",
+      "cry": "sahono",
       "our_father": "asodor",
       "our_mother": "akaodor",
       "my_heart": "rofem_asum",
       "_wealth": "runyina",
-      "welcome": "abba"
+      "welcome": "abba",
+      "mercy": "ruhan"
     };
 
     function translateText() {
