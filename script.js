@@ -4,7 +4,7 @@
       "osenedor": "good night",
       "akuna": "how are you",
       "mma": "mother",
-      "ette": "father",
+      "etteh": "father",
       "mo ye refeh": "see you tomorrow",
       "nka ku maohura": "I'm fine",
       "mofen aoshe": "food",
@@ -15,7 +15,7 @@
       "hikarofem": "patience",
       "runyi": "gift",
       "nsanta": "i will pass",
-      "sahobor anyi obasi": "hand over to God",
+      "sahobor_anyi_obhazi": "hand over to God",
       "henendeme": "goodness",
       "ovai": "chief",
       "hokaha": "light",
@@ -35,7 +35,19 @@
       "tayidor": "conquer for us",
       "amah": "mouth",
       "yen": "eyes",
-      "sen": "eye"
+      "sen": "eye",
+      "samaru": "thank you",
+      "onaunyi": "he has done for me",
+      "sadeyeng": "let see",
+      "edero": "we shall say",
+      "enarunyi": "we shall receive gift",
+      "hene": "wealth",
+      "hivinene": "waking",
+      "asodor": "our_father",
+      "akaodor": "our_mother",
+      "rofem_asum": "my_heart",
+      "runyina": "_wealth",
+      "abba": "welcome"
     };
 
     const dictionaryEnglishToOhumono = {
@@ -43,7 +55,7 @@
       "good night": "osenedor",
       "how are you": "akuna",
       "mother": "mma",
-      "father": "ette",
+      "father": "etteh",
       "see you tomorrow": "mo ye refeh",
       "I'm fine": "nka ku maohura",
       "food": "mofen aoshe",
@@ -54,7 +66,7 @@
       "patience": "hikarofem",
       "gift": "runyi",
       "i will pass": "nsanta",
-      "hand over to God": "sahobor anyi obasi",
+      "hand over to God": "sahobor_anyi_obhazi",
       "goodness": "henendeme",
       "chief": "ovai",
       "light": "hokaha",
@@ -73,7 +85,19 @@
       "conquer for us": "tayidor",
       "mouth": "amah",
       "eyes": "yen",
-      "eye": "sen"
+      "eye": "sen",
+      "thank you": "samaru",
+      "he has done for me": "onaunyi",
+      "let see": "sadeyeng",
+      "we shall say": "edero",
+      "we shall receive gift": "enarunyi",
+      "wealth": "hene",
+      "waking": "hivinene",
+      "our_father": "asodor",
+      "our_mother": "akaodor",
+      "my_heart": "rofem_asum",
+      "_wealth": "runyina",
+      "welcome": "abba"
     };
 
     function translateText() {
