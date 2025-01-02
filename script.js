@@ -179,4 +179,9 @@
       link.download = "translation_history.txt";
       link.click();
     }
-  
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js').then(() => {
+      console.log('Service Worker Registered');
+    });
+  }
