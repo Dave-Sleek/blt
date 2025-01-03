@@ -180,6 +180,24 @@
       link.click();
     }
 
+const networkStatusContainer = document.getElementById("networkStatusContainer");
+
+// Function to check and update network status
+    function updateNetworkStatus() {
+      if (navigator.onLine) {
+        networkStatusContainer.style.display = "none";
+      } else {
+        networkStatusContainer.style.display = "flex";
+      }
+    }
+
+    // Add event listeners for online and offline events
+    window.addEventListener("online", updateNetworkStatus);
+    window.addEventListener("offline", updateNetworkStatus);
+
+    // Check the network status on page load
+    updateNetworkStatus();
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js').then(() => {
       console.log('Service Worker Registered');
