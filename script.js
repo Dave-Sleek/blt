@@ -24,7 +24,8 @@
       "hokpoma": "praise",
       "rademene": "happiness",
       "royor": "river",
-      "anum": "mine",
+      "anum": "me",
+      "ahnum": "my",
       "ozep": "love",
       "evare": "answer",
       "reyah": "greetings",
@@ -43,13 +44,49 @@
       "enarunyi": "we shall receive gift",
       "hene": "wealth",
       "hivinene": "waking",
-      "sahono": "cry",
       "asodor": "our_father",
       "akaodor": "our_mother",
       "rofem_asum": "my_heart",
       "runyina": "_wealth",
       "abba": "welcome",
-      "ruhan": "mercy"
+      "ruhan": "mercy",
+      "remare": "character",
+      "odam": "fine",
+      "affa": "market",
+      "orom": "man",
+      "gwa": "woman",
+      "gwan": "child",
+      "gwen": "one",
+      "ava": "two",
+      "aneozeng": "who knows",
+      "refe": "tomorrow",
+      "aretah": "nothing is impossible",
+      "arettah": "_nothing is impossible",
+      "faodor": "our own",
+      "fatune": "what you think",
+      "agwo": "you",
+      "ngherere": "excuss",
+      "eriri": "church",
+      "jian": "come",
+      "okpokoro": "table",
+      "teh": "go",
+      "nviza": "I'm going",
+      "ekirika": "clock",
+      "anzep azep": "I love_you",
+      "ohahara": "resemblance",
+      "eseh": "chair",
+      "ofa": "cup",
+      "ngbakari": "glass",
+      "nkene": "plate",
+      "efa": "dog",
+      "iwa": "broom",
+      "okpo": "robber",
+      "okpoho": "money",
+      "hovihare": "progress",
+      "oviza": "left",
+      "aneota": "who is above",
+      "odamadam": "good",
+      "hovone": "unity"
     };
 
     const dictionaryEnglishToOhumono = {
@@ -87,6 +124,8 @@
       "conquer for us": "tayidor",
       "mouth": "amah",
       "eyes": "yen",
+      "me": "anum",
+      "my": "ahnum",
       "eye": "sen",
       "thank you": "samaru",
       "he has done for me": "onaunyi",
@@ -95,14 +134,66 @@
       "we shall receive gift": "enarunyi",
       "wealth": "hene",
       "waking": "hivinene",
-      "cry": "sahono",
       "our_father": "asodor",
       "our_mother": "akaodor",
       "my_heart": "rofem_asum",
       "_wealth": "runyina",
       "welcome": "abba",
-      "mercy": "ruhan"
+      "mercy": "ruhan",
+      "character": "remare",
+      "fine": "odam",
+      "market": "affa",
+      "man": "orom",
+      "woman": "gwa",
+      "child": "gwan",
+      "one": "gwen",
+      "two": "ava",
+      "who knows": "aneozeng",
+      "tomorrow": "refe",
+      "nothing is impossible": "aretah",
+      "_nothing is impossible": "arettah",
+      "our own": "faodor",
+      "what you think": "fatune",
+      "you": "agwo",
+      "excuss": "ngherere",
+      "church": "eriri",
+      "come": "jian",
+      "table": "okpokoro",
+      "go": "teh",
+      "going": "nviza",
+      "clock": "ekirika",
+      "I love_you": "anzep azep",
+      "resemblance": "ohahara",
+      "chair": "eseh",
+      "cup": "ofa",
+      "glass": "ngbakari",
+      "plate": "nkene",
+      "dog": "efa",
+      "broom": "iwa",
+      "robber": "okpo",
+      "money": "okpoho",
+      "progress": "hovihare",
+      "left": "oviza",
+      "who is above": "aneota",
+      "good": "odamadam",
+      "unity": "hovone"
     };
+
+  let typingTimer; // Timer identifier
+  const typingInterval = 500; // Time in milliseconds (0.5 seconds)
+
+  const inputTextArea = document.getElementById("inputText");
+  const originalTextElement = document.getElementById("originalText");
+  const translatedTextElement = document.getElementById("translatedText");
+  const historyList = document.getElementById("translationHistory");
+
+  // Automatically update translation on keyup
+  inputTextArea.addEventListener("input", () => {
+    clearTimeout(typingTimer); // Clear the timer on every keystroke
+    typingTimer = setTimeout(() => {
+      updateTranslation();
+    }, typingInterval); // Call updateTranslation after typing stops
+  });
 
     function translateText() {
       const inputText = document.getElementById("inputText").value.trim().toLowerCase();
@@ -122,13 +213,27 @@
       document.getElementById("originalText").textContent = inputText || "No input provided.";
       document.getElementById("translatedText").innerHTML = translation || "No translation found.";
 
-      saveHistory(inputText, translation);
+      // saveHistory(inputText, translation);
+
+      // Save history only when a valid translation exists
+    if (inputText && translation && inputText !== translation) {
+      saveHistory(translation);
+    }
     }
 
     function reverseTranslation() {
+
+      const original = document.getElementById("originalText").textContent;
+      const translation = document.getElementById("translatedText").textContent;
+
+      document.getElementById("inputText").value = translation;
+      document.getElementById("originalText").textContent = translation;
+      document.getElementById("translatedText").textContent = original;
+
       const select = document.getElementById("translationDirection");
       select.value =
         select.value === "ohumonoToEnglish" ? "englishToOhumono" : "ohumonoToEnglish";
+      translateText();
     }
 
     function speakTranslation() {
@@ -150,14 +255,32 @@
       document.getElementById("translatedText").textContent = "";
     }
 
+    // function toggleDarkMode() {
+    //   document.body.classList.toggle("dark-mode");
+    // }
+
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
+  
+      const isDarkMode = document.body.classList.contains("dark-mode");
+      document.getElementById("lightLogo").style.display = isDarkMode ? "none" : "block";
+      document.getElementById("darkLogo").style.display = isDarkMode ? "block" : "none";
     }
 
-    function saveHistory(original, translation) {
-      const historyList = document.getElementById("translationHistory");
+    // function saveHistory(original, translation) {
+    //   const historyList = document.getElementById("translationHistory");
+    //   const listItem = document.createElement("li");
+    //   listItem.textContent = `Original: ${original} | Translation: ${translation}`;
+    //   historyList.appendChild(listItem);
+    // }
+
+    function saveHistory(translation) {
+      // Avoid duplicating the last saved history entry
+      const lastEntry = historyList.lastElementChild?.textContent;
+      if (lastEntry === translation) return;
+  
       const listItem = document.createElement("li");
-      listItem.textContent = `Original: ${original} | Translation: ${translation}`;
+      listItem.textContent = translation;
       historyList.appendChild(listItem);
     }
 
@@ -180,7 +303,7 @@
       link.click();
     }
 
-const networkStatusContainer = document.getElementById("networkStatusContainer");
+  const networkStatusContainer = document.getElementById("networkStatusContainer");
 
 // Function to check and update network status
     function updateNetworkStatus() {
@@ -197,6 +320,38 @@ const networkStatusContainer = document.getElementById("networkStatusContainer")
 
     // Check the network status on page load
     updateNetworkStatus();
+
+
+    // Initialize EmailJS
+
+  function submitFeedback(event) {
+    event.preventDefault(); // Prevent page reload
+    
+    const name = document.getElementById("name").value.trim() || "Anonymous";
+    const feedback = document.getElementById("feedback").value.trim();
+
+    if (feedback) {
+      const templateParams = {
+        name,
+        feedback,
+      };
+
+      // Send email using EmailJS
+      emailjs
+        .send('service_7doimgo', 'template_6axipkg', templateParams) // Replace with your IDs
+        .then(
+          () => {
+            document.getElementById("feedbackResponse").style.display = "block";
+            document.getElementById("feedbackError").style.display = "none";
+            document.getElementById("feedbackForm").reset();
+          },
+          () => {
+            document.getElementById("feedbackResponse").style.display = "none";
+            document.getElementById("feedbackError").style.display = "block";
+          }
+        );
+    }
+  }
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js').then(() => {
