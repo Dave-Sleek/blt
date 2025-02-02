@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bahumono Language Translator</title>
+  <title>Bahumono Language Translator V1.0</title>
   <link rel="manifest" href="manifest.json">
   <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
-    body {
+
+   body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
@@ -21,6 +22,7 @@
       align-items: center;
       min-height: 100vh;
       transition: background-color 0.3s ease, color 0.3s ease;
+     
     }
 
     .translator-container {
@@ -71,13 +73,15 @@
     }
 
     .dark-mode {
-      background-color: #333;
+      background-color: #031019;
       color: #fff;
     }
 
     .dark-mode .translator-container {
-      background-color: #444;
+      background-color:rgb(6, 26, 41);
       color: #fff;
+      border-color: #ffffff;
+      box-shadow: 0 0 5px #ffffff;
     }
 
     h2 {
@@ -95,7 +99,7 @@
     }
 
     .dark-mode .output-container p {
-      background-color: #555;
+      background-color: #031019;
     }
 
     .history {
@@ -121,14 +125,14 @@
     }
 
     .dark-mode .history li {
-      background-color: #555;
+      background-color: #031019;
     }
 
      /* Footer Styling */
      footer {
       background-color: #0078d7;
       color: white;
-      width: 95%;
+      width: 94%;
       text-align: center;
       padding: 15px;
       position: relative;
@@ -170,38 +174,42 @@
 .network-status p {
   font-size: 1.5rem;
 }
+
   </style>
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.css">
 </head>
 <body>
-  <script>
+<script>
   window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
-
-  <!-- No network connection -->
+<!-- No network connection -->
 <div id="networkStatusContainer" class="network-status">
   <img src="assets/img/no-network.png" alt="No Network">
   <p>No network connection. Please check your Wi-Fi or Mobile Data.</p>
 </div>
-  
+
   <div class="translator-container">
-    <h1>Bahumono Language Translator</h1>
+  <center><a href="index.html"><img id="lightLogo" src="assets/img/blt0000.png" alt="Light Mode Logo" style="display: block;">
+  <img id="darkLogo" src="assets/img/blt000.png" alt="Dark Mode Logo" style="display: none;"></a></center>
+    <!-- <img src="assets/img/blt0000.png" alt="Site Logo"> -->
     <br>
-    <select id="translationDirection">
+    <select id="translationDirection" onchange="translateText()">
       <option value="ohumonoToEnglish">Ohumono to English</option>
       <option value="englishToOhumono">English to Ohumono</option>
     </select>
-    <button onclick="reverseTranslation()">Reverse</button>
+    <button onclick="reverseTranslation()">Reverse <i class="fa fa-exchange"></i></button>
     <br><br>
-    <textarea id="inputText" placeholder="Enter text here..."></textarea>
+    <textarea id="inputText" placeholder="Enter text here..." oninput="translateText()"></textarea>
     <br>
-    <button onclick="translateText()">Translate</button>
-    <button onclick="speakTranslation()">Speak</button>
-    <button onclick="copyTranslation()">Copy</button>
-    <button onclick="clearFields()">Clear</button>
+    <button onclick="translateText()">Translate <i class="fa fa-language"></i></button>
+    <button onclick="speakTranslation()">Speak <i class="fa fa-podcast"></i></button>
+    <button onclick="copyTranslation()">Copy <i class="fa fa-copy"></i></button>
+    <button onclick="clearFields()">Clear <i class="fa fa-refresh"></i></button>
     <br><br>
-    <button onclick="downloadHistory()">Download History</button>
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button onclick="downloadHistory()">Download History <i class="fa fa-history"></i></button>
+    <button onclick="toggleDarkMode()">Toggle Dark Mode <i class="fa fa-toggle-off"></i></button>
     <h2>Original and Translated Text:</h2>
     <div class="output-container">
       <p><strong>Original:</strong> <span id="originalText">Your input will appear here...</span></p>
@@ -211,12 +219,23 @@
       <h3>Translation History</h3>
       <ul id="translationHistory"></ul>
     </div>
+    <h2>We Value Your Feedback</h2>
+  <form id="feedbackForm" onsubmit="submitFeedback(event)">
+    <!-- <label for="name">Name (optional):</label><br> -->
+    <input type="text" id="name" autocomplete="name" placeholder="Your name" style="width: 93%; height:30px; margin-bottom: 10px;"><br>
+    <!-- <label for="feedback">Your Feedback:</label><br> -->
+    <textarea id="feedback" placeholder="Write your feedback here..." required style="width: 93%; height: 100px; margin-bottom: 10px;"></textarea><br>
+    <button type="submit" style="padding: 10px; background-color: #0078d7; color: white; border: none; border-radius: 5px; cursor: pointer;">Submit Feedback</button>
+  </form>
+  <p id="feedbackResponse" style="margin-top: 10px; color: green; display: none;">Thank you for your feedback!</p>
+  <p id="feedbackError" style="margin-top: 10px; color: red; display: none;">Failed to send feedback. Please try again later.</p>
+
     <footer>
-    <p>&copy; Dave Enyi - <span id="year"></span> <script>
+    <p>Since 2024 - <span id="year"></span> <script>
           const d = new Date();
           let year = d.getFullYear();
           document.getElementById("year").innerHTML = year;
-          </script>| All Rights Reserved.</p>
+          </script>| &copy; Dave Enyi - All Rights Reserved. V2.1</p>
     <p>
       <!-- <a href="#">About</a> | 
       <a href="#">Contact</a> |
@@ -224,6 +243,17 @@
     </p>
   </footer>
   </div>
-  <script src="script.js"></script>
+  </div>
+   <script src="script.js"></script>
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "cZIeiL4_hBhrOZWWr",
+      });
+   })();
+</script>
 </body>
 </html>
